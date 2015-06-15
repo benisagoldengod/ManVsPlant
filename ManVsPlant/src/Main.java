@@ -9,21 +9,22 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Main {
-	public static final int length = 50;
+	public static final int height = 50;
 	public static final int width = 50;
 	public static final int scale = 10;
 	public static ArrayList<Entity> entities = new ArrayList<>();
 	private static JPanel panel;
-	private static BufferedImage screen = new BufferedImage(length * scale + 4 * scale, width * scale + 4 * scale, BufferedImage.TYPE_INT_RGB);
+	private static BufferedImage screen = new BufferedImage(width * scale + 4 * scale, height * scale + 4 * scale, BufferedImage.TYPE_INT_RGB);
+	private static Color BACKGROUND_COLOR = Color.BLACK;
 
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
+	public static void main(final String[] args) {
+		final JFrame frame = new JFrame();
 		panel = new JPanel();
-		panel.setPreferredSize(new Dimension(length, width));
+		panel.setPreferredSize(new Dimension(width, height));
 		panel.setBackground(Color.GREEN);
 		frame.add(panel);
 		frame.pack();
-		frame.setBounds(0, 0, width * scale + 4 * scale, length * scale + 4 * scale);
+		frame.setBounds(0, 0, width * scale + 4 * scale, height * scale + 4 * scale);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 
@@ -32,9 +33,9 @@ public class Main {
 	}
 
 	public static void initialize() {
-		entities.add(new Fort(width / 2, length - 1));
+		entities.add(new Fort(width / 2, height - 1));
 		entities.add(new Jewel(width / 2, 0));
-		entities.add(new Man(width / 2 - 1, length - 1));
+		entities.add(new Man(width / 2 - 1, height - 1));
 		entities.add(new Hedge(width / 2 - 1, 0));
 		entities.add(new Hedge(width / 2 + 1, 0));
 		entities.add(new Hedge(width / 2, 1));
@@ -46,22 +47,23 @@ public class Main {
 			drawMap();
 			try {
 				Thread.sleep(1000);
-			} catch (InterruptedException e) {
+			} catch (final InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
 	public static void updateAll() {
-		for (Entity e : entities) {
+		for (final Entity e : entities) {
 			e.update();
 		}
 	}
 
 	public static void drawMap() {
-		Graphics g = screen.getGraphics();
-		panel.setBackground(Color.GREEN);
-		for (Entity e : entities) {
+		final Graphics g = screen.getGraphics();
+		g.setColor(BACKGROUND_COLOR);
+		g.fillRect(0, 0, width * scale, height * scale);
+		for (final Entity e : entities) {
 			e.draw((Graphics2D) g);
 		}
 		g.dispose();
