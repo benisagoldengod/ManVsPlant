@@ -1,3 +1,5 @@
+package entity;
+
 import java.awt.Graphics2D;
 
 public abstract class Entity {
@@ -10,9 +12,9 @@ public abstract class Entity {
 		this.y = y;
 	}
 
-	abstract void update();
+	public abstract void update();
 
-	abstract void draw(Graphics2D g);
+	public abstract void draw(Graphics2D g);
 
-	abstract String getType();
+	public abstract String getType();
 }

@@ -1,21 +1,25 @@
+package entity;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import main.Main;
+
 public class Hedge extends Entity {
 
-	public Hedge(int x, int y) {
+	public Hedge(final int x, final int y) {
 		super(x, y);
 		super.health = 50;
 	}
 
 	@Override
-	void update() {
+	public void update() {
 		// Randomly generate new hedges
 
 	}
 
 	@Override
-	void draw(Graphics2D g) {
+	public void draw(final Graphics2D g) {
 		g.setColor(new Color(0, 140, 0));
 		g.fillRect(x * Main.scale, y * Main.scale, Main.scale, Main.scale);
 	}

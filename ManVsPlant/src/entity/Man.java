@@ -1,28 +1,32 @@
+package entity;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import main.Main;
+
 public class Man extends Entity {
 
-	public Man(int x, int y) {
+	public Man(final int x, final int y) {
 		super(x, y);
 		super.health = 30;
 	}
 
 	@Override
-	void update() {
+	public void update() {
 		findJewel(Main.entities);
 	}
 
 	@Override
-	void draw(Graphics2D g) {
+	public void draw(final Graphics2D g) {
 		g.setColor(Color.YELLOW);
 		g.drawString("M", x * Main.scale, y * Main.scale);
 	}
 
-	private void findJewel(ArrayList<Entity> entities) {
-		for (Entity e : entities) {
+	private void findJewel(final ArrayList<Entity> entities) {
+		for (final Entity e : entities) {
 			if (e.getType().equals("Jewel")) {
 				moveTowards(e.x, e.y);
 			}
@@ -34,9 +38,9 @@ public class Man extends Entity {
 		return "Man";
 	}
 
-	private void moveTowards(int goalx, int goaly) {
-		Point[] awsd = { new Point(x, y - 1), new Point(x, y + 1), new Point(x - 1, y), new Point(x + 1, y), new Point(x, y) };
-		Point goal = new Point(goalx, goaly);
+	private void moveTowards(final int goalx, final int goaly) {
+		final Point[] awsd = { new Point(x, y - 1), new Point(x, y + 1), new Point(x - 1, y), new Point(x + 1, y), new Point(x, y) };
+		final Point goal = new Point(goalx, goaly);
 
 		double mind = goal.distance(awsd[0]);
 		int min = 0;
@@ -46,8 +50,8 @@ public class Man extends Entity {
 				min = i;
 			}
 		}
-		this.x = awsd[min].x;
-		this.y = awsd[min].y;
+		x = awsd[min].x;
+		y = awsd[min].y;
 	}
 
 }

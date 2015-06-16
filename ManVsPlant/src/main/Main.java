@@ -1,3 +1,4 @@
+package main;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -7,6 +8,12 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import entity.Entity;
+import entity.Fort;
+import entity.Hedge;
+import entity.Jewel;
+import entity.Man;
 
 public class Main {
 	public static final int height = 50;
