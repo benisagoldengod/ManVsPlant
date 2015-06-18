@@ -21,7 +21,7 @@ public class Hedge extends Entity {
 	@Override
 	public void draw(final Graphics2D g) {
 		g.setColor(new Color(0, 140, 0));
-		g.fillRect(x * Main.scale, y * Main.scale, Main.scale, Main.scale);
+		g.fillRect(pos.x * Main.scale, pos.y * Main.scale, Main.scale, Main.scale);
 	}
 
 	@Override

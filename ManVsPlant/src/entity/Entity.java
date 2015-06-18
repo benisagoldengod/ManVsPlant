@@ -1,15 +1,14 @@
 package entity;
 
 import java.awt.Graphics2D;
+import java.awt.Point;
 
 public abstract class Entity {
 	public int health;
-	public int x;
-	public int y;
+	public Point pos;
 
 	public Entity(final int x, final int y) {
-		this.x = x;
-		this.y = y;
+		pos = new Point(x, y);
 	}
 
 	public abstract void update();
@@ -17,4 +16,5 @@ public abstract class Entity {
 	public abstract void draw(Graphics2D g);
 
 	public abstract String getType();
+	
 }

@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -53,7 +54,7 @@ public class Main {
 			updateAll();
 			drawMap();
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (final InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -61,8 +62,32 @@ public class Main {
 	}
 
 	public static void updateAll() {
-		for (final Entity e : entities) {
-			e.update();
+		boolean jewelPresent = false;
+		for (int i = 0; i < entities.size(); i++) {
+			if(entities.get(i).health<=0){
+				entities.remove(i);
+				i--;
+			}else{
+				entities.get(i).update();
+				if(entities.get(i).getType().equals("Jewel")){
+					jewelPresent = true;
+				}
+			}
+		}
+		if(!jewelPresent){
+			for (int i = 0; i < entities.size(); i++) {
+				if(entities.get(i).health<=0){
+					entities.remove(i);
+					i--;
+				}else{
+					entities.get(i).update();
+					if(entities.get(i).getType().equals("Jewel")){
+						jewelPresent = true;
+					}
+				}
+			}
+			System.out.println("Victory!");
+			pauseAll();
 		}
 	}
 
@@ -73,8 +98,27 @@ public class Main {
 		for (final Entity e : entities) {
 			e.draw((Graphics2D) g);
 		}
-		g.dispose();
 		panel.getGraphics().drawImage(screen, 0, 0, null);
+		g.dispose();
 	}
-
+	
+	public static Entity getEntityAt(Point p){
+		for(Entity e : entities){
+			if(e.pos.equals(p)){
+				return e;
+			}
+		}
+		return null;
+	}
+	
+	private static void pauseAll(){
+		while(true){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	} 
 }

@@ -21,7 +21,7 @@ public class Fort extends Entity {
 	@Override
 	public void draw(final Graphics2D g) {
 		g.setColor(Color.BLUE);
-		g.fillRect(x * Main.scale, y * Main.scale, 2 * Main.scale, 2 * Main.scale);
+		g.fillRect(pos.x * Main.scale, pos.y * Main.scale, 2 * Main.scale, 2 * Main.scale);
 	}
 
 	@Override

@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import main.Main;
 
 public class Man extends Entity {
-
+	
+	private static final int hitpoints = 5;
+	
 	public Man(final int x, final int y) {
 		super(x, y);
 		super.health = 30;
@@ -22,13 +24,13 @@ public class Man extends Entity {
 	@Override
 	public void draw(final Graphics2D g) {
 		g.setColor(Color.YELLOW);
-		g.drawString("M", x * Main.scale, y * Main.scale);
+		g.fillRect(pos.x * Main.scale + Main.scale/4, pos.y * Main.scale + Main.scale/4, Main.scale/2, Main.scale/2);
 	}
 
 	private void findJewel(final ArrayList<Entity> entities) {
 		for (final Entity e : entities) {
 			if (e.getType().equals("Jewel")) {
-				moveTowards(e.x, e.y);
+				moveTowards(e.pos);
 			}
 		}
 	}
@@ -38,9 +40,8 @@ public class Man extends Entity {
 		return "Man";
 	}
 
-	private void moveTowards(final int goalx, final int goaly) {
-		final Point[] awsd = { new Point(x, y - 1), new Point(x, y + 1), new Point(x - 1, y), new Point(x + 1, y), new Point(x, y) };
-		final Point goal = new Point(goalx, goaly);
+	private void moveTowards(final Point goal) {
+		final Point[] awsd = { new Point(pos.x, pos.y - 1), new Point(pos.x, pos.y + 1), new Point(pos.x - 1, pos.y), new Point(pos.x + 1, pos.y), new Point(pos.x, pos.y) };
 
 		double mind = goal.distance(awsd[0]);
 		int min = 0;
@@ -50,8 +51,20 @@ public class Man extends Entity {
 				min = i;
 			}
 		}
-		x = awsd[min].x;
-		y = awsd[min].y;
+		if(spaceIsFree(awsd[min])){
+			pos = awsd[min];
+		}else if(Main.getEntityAt(awsd[min]).getType().equals("Hedge") || (Main.getEntityAt(awsd[min]).getType().equals("Jewel"))){
+			Main.getEntityAt(awsd[min]).health -= hitpoints;
+		}
+	}
+	
+	public boolean spaceIsFree(Point p){
+		for(Entity e : Main.entities){
+			if(e.pos.equals(p)){
+				return false;
+			}
+		}
+		return true;
 	}
 
 }

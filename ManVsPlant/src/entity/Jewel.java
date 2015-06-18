@@ -10,7 +10,6 @@ public class Jewel extends Entity {
 	public Jewel(final int x, final int y) {
 		super(x, y);
 		super.health = 1;
-
 	}
 
 	@Override
@@ -21,7 +20,7 @@ public class Jewel extends Entity {
 	@Override
 	public void draw(final Graphics2D g) {
 		g.setColor(Color.RED);
-		g.fillRect(x * Main.scale, y * Main.scale, Main.scale, Main.scale);
+		g.fillRect(pos.x * Main.scale, pos.y * Main.scale, Main.scale, Main.scale);
 	}
 
 	@Override
