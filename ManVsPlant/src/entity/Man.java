@@ -9,11 +9,8 @@ import main.Main;
 
 public class Man extends Entity {
 	
-	private static final int hitpoints = 5;
-	
 	public Man(final int x, final int y) {
-		super(x, y);
-		super.health = 30;
+		super(x, y, 30, 5);
 	}
 
 	@Override
@@ -51,20 +48,13 @@ public class Man extends Entity {
 				min = i;
 			}
 		}
-		if(spaceIsFree(awsd[min])){
+		if(Main.spaceIsFree(awsd[min])){
 			pos = awsd[min];
-		}else if(Main.getEntityAt(awsd[min]).getType().equals("Hedge") || (Main.getEntityAt(awsd[min]).getType().equals("Jewel"))){
+		}else if(Main.getEntityAt(awsd[min]).getType().equals("Hedge")){
+			Main.getEntityAt(awsd[min]).health -= hitpoints;
+			super.health -= Main.getEntityAt(awsd[min]).hitpoints;
+		}else if((Main.getEntityAt(awsd[min]).getType().equals("Jewel"))){
 			Main.getEntityAt(awsd[min]).health -= hitpoints;
 		}
 	}
-	
-	public boolean spaceIsFree(Point p){
-		for(Entity e : Main.entities){
-			if(e.pos.equals(p)){
-				return false;
-			}
-		}
-		return true;
-	}
-
 }

@@ -8,8 +8,7 @@ import main.Main;
 public class Jewel extends Entity {
 
 	public Jewel(final int x, final int y) {
-		super(x, y);
-		super.health = 1;
+		super(x, y, 1, 0);
 	}
 
 	@Override

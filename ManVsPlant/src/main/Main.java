@@ -1,5 +1,6 @@
 package main;
 import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -10,11 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import entity.Entity;
-import entity.Fort;
-import entity.Hedge;
-import entity.Jewel;
-import entity.Man;
+import entity.*;
 
 public class Main {
 	public static final int height = 50;
@@ -23,7 +20,9 @@ public class Main {
 	public static ArrayList<Entity> entities = new ArrayList<>();
 	private static JPanel panel;
 	private static BufferedImage screen = new BufferedImage(width * scale + 4 * scale, height * scale + 4 * scale, BufferedImage.TYPE_INT_RGB);
-	private static Color BACKGROUND_COLOR = Color.BLACK;
+	private static Color BACKGROUND_COLOR = Color.GREEN;
+	private static final int LENGTH_BETWEEN_UPDATES = 100;
+	public static double coins = 0;
 
 	public static void main(final String[] args) {
 		final JFrame frame = new JFrame();
@@ -32,7 +31,7 @@ public class Main {
 		panel.setBackground(Color.GREEN);
 		frame.add(panel);
 		frame.pack();
-		frame.setBounds(0, 0, width * scale + 4 * scale, height * scale + 4 * scale);
+		frame.setBounds(0, 0, width * scale + 3 * scale, height * scale + 4 * scale);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 
@@ -41,12 +40,12 @@ public class Main {
 	}
 
 	public static void initialize() {
-		entities.add(new Fort(width / 2, height - 1));
+		entities.add(new Fort(width / 2, height - 2));
 		entities.add(new Jewel(width / 2, 0));
-		entities.add(new Man(width / 2 - 1, height - 1));
 		entities.add(new Hedge(width / 2 - 1, 0));
 		entities.add(new Hedge(width / 2 + 1, 0));
 		entities.add(new Hedge(width / 2, 1));
+		entities.add(new Mine(width/4, 3*height/4));
 	}
 
 	public static void run() {
@@ -54,7 +53,7 @@ public class Main {
 			updateAll();
 			drawMap();
 			try {
-				Thread.sleep(100);
+				Thread.sleep(LENGTH_BETWEEN_UPDATES);
 			} catch (final InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -94,10 +93,12 @@ public class Main {
 	public static void drawMap() {
 		final Graphics g = screen.getGraphics();
 		g.setColor(BACKGROUND_COLOR);
-		g.fillRect(0, 0, width * scale, height * scale);
+		g.fillRect(0, 0, width * scale + 3 * scale, height * scale + 4 * scale);
 		for (final Entity e : entities) {
 			e.draw((Graphics2D) g);
 		}
+		g.setColor(Color.black);
+		g.drawString("Coins: " + coins, 5, 10);
 		panel.getGraphics().drawImage(screen, 0, 0, null);
 		g.dispose();
 	}
@@ -121,4 +122,16 @@ public class Main {
 			}
 		}
 	} 
+	public static boolean spaceIsFree(Point p){
+		if(p.x < 0 || p.x > width || p.y < 0 || p.y > height){
+			return false;
+		}else{
+			for(Entity e : entities){
+				if(e.pos.equals(p)){
+					return false;
+				}
+			}
+			return true;
+		}
+	}
 }
