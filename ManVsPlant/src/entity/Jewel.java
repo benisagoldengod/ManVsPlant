@@ -9,6 +9,9 @@ public class Jewel extends Entity {
 
 	public Jewel(final int x, final int y) {
 		super(x, y, 1, 0);
+		Main.entities.add(new Hedge(x + 1, y));
+		Main.entities.add(new Hedge(x - 1, y));
+		Main.entities.add(new Hedge(x, y + 1));
 	}
 
 	@Override
