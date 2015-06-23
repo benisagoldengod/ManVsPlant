@@ -9,7 +9,7 @@ import java.util.Random;
 import main.Main;
 
 public class Hedge extends Entity {
-	private static final int SPAWN_PROBABILITY = 16; //higher number = less likely to spawn new hedges
+	private static final int SPAWN_PROBABILITY = 28; //higher number = less likely to spawn new hedges
 	public static final int THICKEN_PROBABILITY = 95; //change hedge will get harder, stop producing new hedges, not hit back;
 	private boolean thickened = false;
 	private Color c = new Color(0, 140, 0);

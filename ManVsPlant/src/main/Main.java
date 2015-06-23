@@ -14,15 +14,16 @@ import javax.swing.JPanel;
 import entity.*;
 
 public class Main {
-	public static final int height = 100;
-	public static final int width = 100;
-	public static final int scale = 10;
+	public static final int height = 200;
+	public static final int width = 200;
+	public static final int scale = 5;
 	public static ArrayList<Entity> entities = new ArrayList<>();
 	private static JPanel panel;
 	private static BufferedImage screen = new BufferedImage(width * scale + 4 * scale, height * scale + 4 * scale, BufferedImage.TYPE_INT_RGB);
 	private static Color BACKGROUND_COLOR = Color.GREEN;
-	private static final int LENGTH_BETWEEN_UPDATES = 100;
+	private static final int LENGTH_BETWEEN_UPDATES = 0;
 	public static double coins = 50;
+	private static int score = 0;
 
 	public static void main(final String[] args) {
 		final JFrame frame = new JFrame();
@@ -63,6 +64,9 @@ public class Main {
 		boolean jewelPresent = false;
 		for (int i = 0; i < entities.size(); i++) {
 			if(entities.get(i).health<=0){
+				if(entities.get(i).getType().equals("Hedge")){
+					score++;
+				}
 				entities.remove(i);
 				i--;
 			}else{
@@ -87,7 +91,8 @@ public class Main {
 			e.draw((Graphics2D) g);
 		}
 		g.setColor(Color.black);
-		g.drawString("Coins: " + coins, 5, 10);
+		g.drawString("Coins: " + coins, 5, height*scale - 35);
+		g.drawString("Score: " + score, 5, height*scale - 50);
 		panel.getGraphics().drawImage(screen, 0, 0, null);
 		g.dispose();
 	}
