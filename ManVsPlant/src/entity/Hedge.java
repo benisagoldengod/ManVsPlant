@@ -46,7 +46,7 @@ public class Hedge extends Entity {
 			thickened = true;
 			color = THICKENED_COLOR;
 			super.health += 50;
-			super.hitpoints = 2;
+			super.damage = 2;
 		}
 	}
 

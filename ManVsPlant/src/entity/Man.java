@@ -59,10 +59,10 @@ public class Man extends Entity {
 		if(Main.spaceIsFree(awsd[min])){
 			pos = awsd[min];
 		}else if(Main.getEntityAt(awsd[min]).getType().equals("Hedge")){
-			Main.getEntityAt(awsd[min]).health -= hitpoints;
-			super.health -= Main.getEntityAt(awsd[min]).hitpoints;
+			Main.getEntityAt(awsd[min]).health -= damage;
+			super.health -= Main.getEntityAt(awsd[min]).damage;
 		}else if((Main.getEntityAt(awsd[min]).getType().equals("Jewel"))){
-			Main.getEntityAt(awsd[min]).health -= hitpoints;
+			Main.getEntityAt(awsd[min]).health -= damage;
 		}else if((Main.getEntityAt(awsd[min]).getType().equals("Man"))){
 			goal = getGoal();
 		}

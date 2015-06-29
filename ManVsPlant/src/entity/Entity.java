@@ -7,12 +7,12 @@ import java.util.Random;
 public abstract class Entity {
 	public int health;
 	public Point pos;
-	public int hitpoints;
+	public int damage;
 	public static Random r = new Random();
 
-	public Entity(final int x, final int y, final int health, final int hitpoints) {
+	public Entity(final int x, final int y, final int health, final int damage) {
 		this.health = health;
-		this.hitpoints = hitpoints;
+		this.damage = damage;
 		pos = new Point(x, y);
 	}
 
