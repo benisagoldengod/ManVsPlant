@@ -10,7 +10,7 @@ public abstract class Entity {
 	public int hitpoints;
 	public static Random r = new Random();
 
-	public Entity(final int x, final int y, int health, int hitpoints) {
+	public Entity(final int x, final int y, final int health, final int hitpoints) {
 		this.health = health;
 		this.hitpoints = hitpoints;
 		pos = new Point(x, y);
@@ -21,5 +21,5 @@ public abstract class Entity {
 	public abstract void draw(Graphics2D g);
 
 	public abstract String getType();
-	
+
 }

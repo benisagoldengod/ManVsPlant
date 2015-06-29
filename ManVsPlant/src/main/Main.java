@@ -1,6 +1,6 @@
 package main;
-import java.awt.Color;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -11,7 +11,10 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import entity.*;
+import entity.Entity;
+import entity.Fort;
+import entity.Jewel;
+import entity.Mine;
 
 public class Main {
 	public static final int height = 200;
@@ -43,9 +46,9 @@ public class Main {
 	public static void initialize() {
 		entities.add(new Fort(width / 2, height - 2));
 		entities.add(new Jewel(1, 0));
-		entities.add(new Jewel(width/2, 0));
+		entities.add(new Jewel(width / 2, 0));
 		entities.add(new Jewel(width - 1, 0));
-		entities.add(new Mine(width/4, 3*height/4 + 10));
+		entities.add(new Mine(width / 4, 3 * height / 4 + 10));
 	}
 
 	public static void run() {
@@ -63,20 +66,20 @@ public class Main {
 	public static void updateAll() {
 		boolean jewelPresent = false;
 		for (int i = 0; i < entities.size(); i++) {
-			if(entities.get(i).health<=0){
-				if(entities.get(i).getType().equals("Hedge")){
+			if (entities.get(i).health <= 0) {
+				if (entities.get(i).getType().equals("Hedge")) {
 					score++;
 				}
 				entities.remove(i);
 				i--;
-			}else{
+			} else {
 				entities.get(i).update();
-				if(entities.get(i).getType().equals("Jewel")){
+				if (entities.get(i).getType().equals("Jewel")) {
 					jewelPresent = true;
 				}
 			}
 		}
-		if(!jewelPresent){
+		if (!jewelPresent) {
 			drawMap();
 			System.out.println("Victory!");
 			pauseAll();
@@ -91,41 +94,42 @@ public class Main {
 			e.draw((Graphics2D) g);
 		}
 		g.setColor(Color.black);
-		g.drawString("Coins: " + coins, 5, height*scale - 35);
-		g.drawString("Score: " + score, 5, height*scale - 50);
+		g.drawString("Coins: " + coins, 5, height * scale - 35);
+		g.drawString("Score: " + score, 5, height * scale - 50);
 		panel.getGraphics().drawImage(screen, 0, 0, null);
 		g.dispose();
 	}
-	
-	public static Entity getEntityAt(Point p){
-		for(Entity e : entities){
-			if(e.pos.equals(p)){
+
+	public static Entity getEntityAt(final Point p) {
+		for (final Entity e : entities) {
+			if (e.pos.equals(p)) {
 				return e;
 			}
 		}
 		return null;
 	}
-	
-	private static void pauseAll(){
-		while(true){
+
+	private static void pauseAll() {
+		while (true) {
 			try {
 				Thread.sleep(1000);
-			} catch (InterruptedException e) {
+			} catch (final InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-	} 
-	public static boolean spaceIsFree(Point p){
-		if(p.x < 0 || p.x > width || p.y < 0 || p.y > height){
+	}
+
+	public static boolean spaceIsFree(final Point p) {
+		if (p.x < 0 || p.x > width || p.y < 0 || p.y > height) {
 			return false;
-		}else{
-			for(Entity e : entities){
-				if(e.pos.equals(p)){
-					return false;
-				}
-			}
-			return true;
 		}
+		for (final Entity e : entities) {
+			if (e.pos.equals(p)) {
+				return false;
+			}
+		}
+		return true;
+
 	}
 }
